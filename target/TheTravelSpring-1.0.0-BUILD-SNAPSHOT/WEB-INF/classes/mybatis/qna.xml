@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="qna">
+
+<!-- 최대 글번호 얻기 -->
+	<select id="qnaNumMax" resultType="Integer">
+		select max(num)
+		from qna	
+	</select>
+	
+	<!-- 답글끼워넣기 -->
+	<update id="qnaReStep" parameterType="qnaDTO">
+		update qna set re_step=re_step+1
+		where ref=#{ref} and re_step>#{re_step}
+	</update>
+	
+	<!-- 글쓰기, 답글 쓰기 -->
+	<insert id="insertQna" parameterType="qnaDTO">
+		insert into qna(writer,subject,regdate,pw,
+		ref,re_step,re_level,content,fileName)
+		values(#{writer},#{subject},NOW(),#{pw},
+		#{ref},#{re_step},#{re_level},#{content},#{fileName})
+		
+	</insert>
+	
+	<!-- 글 갯수 -->
+	<select id="qnaCount" resultType="int">
+		select count(*) from qna
+	</select>
+	
+	<!-- 리스트 -->
+	<select id="selectQnaList" parameterType="java.util.Map" resultType="qnaDTO">
+		select * from qna
+		order by ref desc, re_step asc
+		limit #{start},#{count}
+	</select>
+	
+	<!-- 리스트  검색-->
+	<select id="searchQnaList" parameterType="java.util.Map" resultType="qnaDTO">
+		select * from qna
+		where subject like #{searchText} or content like #{searchText}
+		order by ref desc, re_step asc
+		limit #{start},#{count}
+		
+	</select>
+	
+	<!-- 조회수 증가 -->
+	<update id="qnaReadcount" parameterType="int">
+		update qna set readcount=readcount+1
+		where num=#{num}
+	</update>
+	
+
+	
+	<!-- 글내용 보기, 글수정 폼 -->
+	<select id="selectOneQna" parameterType="int" resultType="qnaDTO">
+		select * from qna
+		where num=#{num}
+	</select>
+	
+	<!-- DB글수정 -->
+	<update id="updateQna" parameterType="qnaDTO">
+		UPDATE qna SET writer=#{writer},subject=#{subject},content=#{content},fileName=#{fileName}
+		where num=#{num} and pw=#{pw}
+	</update>
+	
+	<!-- 글삭제 -->
+	<delete id="deleteQna" parameterType="int">
+		delete from qna
+		where num=#{num}	
+	</delete>
+
+
+
+
+</mapper>

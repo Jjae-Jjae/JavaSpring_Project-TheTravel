@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    <mapper namespace="review">
+    
+    <!-- 리뷰 리스트  -->
+     <select id="selectListAll" parameterType="java.util.Map" resultType="reviewDTO">
+        select p.name as pro_name, r.*
+		from product p, review r
+		where r.pro_no = p.id
+       	limit #{start},#{count}
+     </select>
+    
+     <!-- 리뷰 디테일 -->
+     <select id="selectOne" parameterType="String" resultType="reviewDTO">
+       	select p.name as pro_name, r.*
+		from product p, review r
+		where r.pro_no = p.id and
+       	r.review_id=#{review_id}
+     </select>
+     
+     <!-- 리뷰 리스트  -->
+     <select id="selectListPro" parameterType="java.util.Map" resultType="reviewDTO">
+       	select p.name as pro_name, r.*
+		from product p, review r
+		where r.pro_no = p.id and
+      	r.pro_no=#{pro_no}
+      	limit #{start},#{count}
+     </select>
+     
+     <!-- 글 갯수 -->
+     <select id="selectCount" resultType="int">
+       select count(*) from review
+     </select>
+        
+     <!-- 리뷰 작성 -->
+     <insert id="insertReview" parameterType="reviewDTO">
+       insert into review(writer,score,regdate,content,pro_no,review_id)
+       values(#{writer},#{score},NOW(),#{content},#{pro_no},#{review_id})
+     </insert>
+     
+     
+     <!-- 리뷰 수정  -->
+     <update id="reviewUpdate" parameterType="reviewDTO">
+       update review 
+       set score=#{score},content=#{content},
+       where review_id=#{review_id}
+     </update>
+     
+     
+     <!-- 리뷰 삭제 -->
+     <delete id="reviewDelete" parameterType="String">
+       delete from review
+       where review_id=#{review_id}
+     </delete>
+     
+     <!-- join -->
+     
+     <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@이미지 처리@@@@@@@@@@@@@@@@@@@@@@@@@@@@  -->
+          
+     <!-- 리뷰 리스트 이미지  -->
+     <select id="selectImgList" parameterType="String" resultType="reviewImgDTO">
+       select * from review_image
+       where img_id=#{img_id} and img_lvl=0
+     </select>
+     
+     <!-- 리뷰 리스트 이미지  -->
+     <select id="selectImgDetail" parameterType="String" resultType="reviewImgDTO">
+       select * from review_image
+       where img_id=#{img_id}
+     </select>
+     
+     <!-- 리뷰 이미지 작성 -->
+     <insert id="insertImgReview" parameterType="reviewImgDTO">
+       insert into review_image(img_id,img_lvl,img_name)
+       values(#{img_id},#{img_lvl},#{img_name})
+     </insert>
+     
+     <!-- 리뷰 이미지 삭제 -->
+     <delete id="reviewImgDelete" parameterType="String">
+       delete from review_image
+       where img_id=#{review_id}
+     </delete>
+
+     
+    </mapper>

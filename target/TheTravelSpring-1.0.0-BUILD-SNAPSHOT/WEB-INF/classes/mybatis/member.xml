@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    <mapper namespace="member">
+    
+     <!-- Id중복 체크, 회원정보 수정 -->
+     <select id="selectOne" parameterType="String" resultType="memberDTO">
+       select * from member
+       where id=#{id}
+     </select>
+     
+     
+     <!-- 회원가입 -->
+     <insert id="insertMember" parameterType="memberDTO">
+       insert into member(id,pw,name,email,tel,zipcode,
+       addr,addr2,regdate,level)
+       values(#{id},#{pw},#{name},#{email},#{tel},
+       #{zipcode},#{addr},#{addr2},NOW(),0)
+     </insert>
+     
+     <!-- 로그인,map -->
+     <select id="selectLogin" parameterType="map" resultType="memberDTO">
+       select * from member
+       where id=#{id} and pw=#{pw}
+     </select>
+     
+     <!-- 회원정보 수정  -->
+     <update id="memberUpdate" parameterType="memberDTO">
+       update member 
+       set name=#{name},email=#{email},
+       tel=#{tel},zipcode=#{zipcode},addr=#{addr},
+       addr2=#{addr2} 
+       where id=#{id}
+     </update>
+     
+     <!-- 회원암호 수정  -->
+     <update id="memberPwUpdate" parameterType="memberDTO">
+       update member 
+       set pw=#{pw} where id=#{id}
+     </update>
+     
+     
+     <!-- 회원 탈퇴 -->
+     <delete id="memberDelete" parameterType="String">
+       delete from member
+       where id=#{id}
+     </delete>
+     
+     <!-- admin user -->
+     <!-- member list -->
+     <select id="adminSelecteList" parameterType="java.util.Map" resultType="memberDTO">
+       select * from member
+       limit #{start},#{count}
+     </select>
+     
+     <!-- 유저 검색 -->
+     <select id="searchUserList" parameterType="java.util.Map" resultType="memberDTO">
+		select * from member
+		where ${column} = #{searchText}
+		limit #{start},#{count}
+	</select>
+	
+	<!-- 맴버수 -->
+     <select id="searchSelectCount" parameterType="java.util.Map" resultType="int">
+       select count(*) from member
+       where ${column} = #{searchText}
+     </select>
+	
+	 <!-- 맴버수 -->
+     <select id="selectCount" resultType="int">
+       select count(*) from member
+     </select>
+     
+     <update id="memberLevelUp" parameterType="java.util.Map">
+       update member 
+       set level=#{level} where id=#{id}
+     </update>
+   
+     
+    </mapper>

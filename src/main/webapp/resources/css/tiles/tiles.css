@@ -1,0 +1,138 @@
+@charset "UTF-8";
+
+
+/* 공용 css */
+
+.card{
+	margin: 20px;
+	box-shadow: 1px 1px 1px 1px #d2d2d2;
+}
+
+.box {
+  border:1px solid #b2b2b2; 
+  padding: 10px;
+  border-radius: 0.5em;
+  }
+  
+.box-fit {
+  border:1px solid #d2d2d2; 
+  border-radius: 0.5em;
+}
+  
+  
+.inputForm td {
+  border-bottom: 10px solid #fff;
+  padding: 0px 10px 0px 10px;
+}
+
+/*button css*/
+input[type="submit"], input[type="reset"], input[type="button"], button {
+	border-radius: 0.5em;
+	background-color: #a09fcc;
+	box-shadow: 1px 1px 1px 1px #c6c6c6;
+	color: #ffffff;
+	
+}
+
+input[type="submit"]:hover, input[type="reset"]:hover, input[type="button"]:hover, button:hover {
+  background-color: #f6b8d3;
+  cursor:pointer
+}
+
+input[type="submit"]:active, input[type="reset"]:active, input[type="button"]:active, button:active {
+  background-color: #54529c;active
+}
+
+
+/* tiles css */
+
+@font-face {
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/paybooc-Bold.woff') format('woff');
+    font-family: 'paybooc-Bold';
+    font-weight: normal;
+    font-style: normal;
+}
+
+#wrap {
+    display: flex;
+    flex-flow: column nowrap;
+    margin: 0 auto;
+    width: 95%;
+    max-width: 1500px;
+}
+
+.link {
+    /* 홈 상단 메뉴 버튼 */
+    margin: 3.5vh 0vh 3vh 0vh;
+    text-align: center;
+    font-size: 2vw;
+    font-size: 2vh;
+    padding: 0px;
+    width: 110px;
+    color: #d3d2f7;
+    font-weight: bolder;
+    margin-left: 20%;
+}
+.top2 {
+    width: auto;
+    text-align: center;
+    margin: 5px;
+    box-sizing: border-box;
+    height: auto;
+    vertical-align: bottom;
+}
+
+.top2 a {
+    font-size: 15px;
+    color: black;
+    text-align: center;
+}
+
+.top2 div {
+    width: auto;
+    float: right;
+    text-align: center;
+    margin: 20px 10px 0px 10px;
+}
+
+.top2 img {
+    text-align: center;
+    width: 40px;
+    height: 40px;
+}
+
+.top button {
+    /* 로그인 회원가입 로그아웃 마이페이지 버튼 */
+    vertical-align: bottom;
+    position: relative;
+    left: 20px;
+    top: -10px;
+    padding: 2px;
+    background-color: black;
+}
+
+#topBar {
+	display: grid;
+	grid-template-columns: repeat(auto-fit,minmax(0%, auto));
+	background-color: black;
+	min-width: 690px;
+}
+
+#topBar a:hover {
+    color: #f6b8d3;
+    font-weight: bolder;
+}
+
+#topBar img {
+	margin-top: 1vh;
+	margin-left: 4vh;
+	height: 6vh;
+}
+
+body{
+font-family:NanumGothic,나눔고딕,'Nanum Gothic','맑은 고딕',HelveticaNeue,DroidSans,Sans-serif,Helvetica;
+background:url(../images/s_images/body_bg.png);
+line-height:1;
+}
+
+

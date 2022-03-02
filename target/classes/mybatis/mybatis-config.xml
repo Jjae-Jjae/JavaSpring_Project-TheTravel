@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd" >
+
+<configuration>
+	<typeAliases>	 
+	  <typeAlias alias="memberDTO" type="model.member.MemberDto"/>
+	  <typeAlias alias="reviewDTO" type="model.review.ReviewDto"/> 
+	  <typeAlias alias="reviewImgDTO" type="model.review.ReviewImgDto"/> 
+	  <typeAlias alias="noticeDTO" type="model.notice.NoticeDto"/> 
+	  <typeAlias alias="orderDTO" type="model.order.OrderDto"/>
+	  <typeAlias alias="productDTO" type="model.product.ProductDto"/>
+	  <typeAlias alias="faqDTO" type="model.faq.FaqDto"/> 
+	  <typeAlias alias="qnaDTO" type="model.qna.QnaDto"/>		  
+	  
+	</typeAliases>
+
+	<mappers>	
+		<mapper resource="/mybatis/member.xml"/>
+		<mapper resource="/mybatis/review.xml"/>
+		<mapper resource="/mybatis/notice.xml"/>
+		<mapper resource="/mybatis/order.xml"/>
+		<mapper resource="/mybatis/product.xml"/>
+		<mapper resource="/mybatis/faq.xml"/>
+		<mapper resource="/mybatis/qna.xml"/>		
+	</mappers>
+</configuration>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="notice">
+	<!-- 글 목록 -->
+	<select id="selectListNotice" parameterType="java.util.Map" resultType="noticeDTO">
+		select 
+			@ROWNUM:=@ROWNUM+1 AS rno
+			, n.*
+		from 
+			(SELECT @ROWNUM := 0) r
+			, notice n
+		where category like #{category}
+		and (subject like #{searchText} or content like #{searchText}) 
+		order by num desc				
+		limit #{start}, #{count}		
+	</select>
+	
+	<!-- 글 갯수 -->
+	<select id="selectCount" parameterType="java.util.Map" resultType="int">
+		select count(*) from notice
+		where category like #{category} 
+		and (subject like #{searchText} or content like #{searchText})
+	</select>
+	
+	
+	<!-- 글내용 보기, 글수정 폼 -->
+	<select id="selectOneNotice" parameterType="int" resultType="noticeDTO">
+		select * from notice 
+		where num = #{num}
+	</select>	
+		
+	<!-- 조회수 증가 -->
+	<update id="updateReadCount" parameterType="int">
+		update notice 
+		set readcount = readcount + 1 
+		where num = #{num}
+	</update>
+			
+	<!-- 글쓰기 -->
+	<insert id="insertNotice" parameterType="noticeDTO">
+		insert into notice(writer, subject, category, content,regdate, ip)
+		values(#{writer},#{subject},#{category},#{content},NOW(),#{ip})
+	</insert>
+	
+	<!-- 글삭제 -->
+	<delete id="deleteNotice" parameterType="int">
+		delete from notice 
+		where num = #{num}
+	</delete>
+	
+	<!-- DB 글수정 -->
+	<update id="updateNotice" parameterType="noticeDTO">
+		update notice 
+		set writer=#{writer}
+			, subject=#{subject}
+			, category=#{category}
+			, content=#{content}
+		where num=#{num}
+	</update>
+		
+</mapper>

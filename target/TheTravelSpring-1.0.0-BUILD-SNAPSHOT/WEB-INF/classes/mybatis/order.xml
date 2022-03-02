@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="order">
+	<!-- 주문 목록 -->
+	<select id="selectListOrder" parameterType="java.util.Map" resultType="orderDTO">
+		select 
+			@ROWNUM:=@ROWNUM+1 AS sno
+			, p.name as pro_name
+			, p.filename as pro_img
+			, o.*
+		from 
+			(SELECT @ROWNUM := 0) r
+			, product_order o
+			, product p
+		where mem_id = #{mem_id}
+		and p.id = o.pro_id
+		and ord_date between #{start_date} and #{end_date}
+		order by ord_date desc				
+		limit #{start}, #{count}		
+	</select>	
+	
+	<!-- 주문 목록 갯수 -->
+	<select id="selectCount" parameterType="java.util.Map" resultType="int">
+		select count(*) from product_order
+		where mem_id like #{mem_id}
+		and ord_date between #{start_date} and #{end_date}
+	</select>
+	
+	<!-- 주문 내용 보기, 주문 수정 폼 -->
+	<select id="selectOneOrder" parameterType="int" resultType="orderDTO">
+		select * from product_order
+		where ord_num = #{ord_num}
+	</select>	
+	
+	<!-- 주문하기 -->
+	<insert id="insertOrder" parameterType="orderDTO">		
+		insert into product_order(pro_id, mem_id, ord_qty, ord_date, ip) 
+		values(#{pro_id},#{mem_id},#{ord_qty},NOW(),#{ip});		
+	</insert>
+	
+	<!-- 주문 취소(삭제) -->
+	<delete id="deleteOrder" parameterType="int">
+		delete from product_order 
+		where ord_num = #{ord_num}
+	</delete>	
+	
+	<!-- 주문 수정 -->
+	<update id="updateNotice" parameterType="noticeDTO">
+		update product_order 
+		set ord_qty =#{ord_qty}
+		where ord_num = #{ord_num}
+	</update>	
+	
+	<!-- 상품 내용 보기, 상품 주문 폼 -->
+	<select id="selectOneProduct" parameterType="int" resultType="productDTO">
+		select * from product
+		where id = #{pro_id}
+	</select>		
+</mapper>

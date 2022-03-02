@@ -1,0 +1,101 @@
+@charset "UTF-8";
+/* 공통 */
+  
+.container{
+	display: grid;
+	grid-template-columns: repeat(auto-fit,minmax(0%, auto));
+}
+
+.div_btn{
+	padding: 5px;
+	width: 100%;
+	font-size: 18px;
+}
+
+.content_box {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	padding: 10px;
+	width: 95%;
+	height: 100px;
+	resize:none;
+    readonly: readonly;
+}
+
+.deleForm_div{
+	width: 50%;
+	margin: auto;
+	margin-bottom: 30px
+}
+
+
+/* list.jsp */
+
+.card_link{
+	margin: 20px;
+	box-shadow: 1px 1px 1px 1px #d2d2d2;
+}
+
+.card_link:hover {
+	 cursor:pointer
+}
+
+/* detail.jsp */
+
+/* write.jsp */
+
+#score option {
+	font-size:20px;
+}
+
+#score select {
+	border:1px solid #d2d2d2; 
+	font-size:35px;
+	color:red;
+	width: 200px;
+	height: 45px;
+}
+
+/*파일 업로드 버튼 디자인 변경*/
+.filebox {
+  text-align: center;
+}
+
+.filebox label {
+  display:inline-block;
+  position: relative;
+  padding: 2% 44%;
+  font-size: inherit;
+  line-height: normal;
+  background-color: #fbfbfb;
+  cursor: pointer;
+  border: 1px dashed gray;
+  border-radius: 0.25em;
+}
+
+.filebox textarea {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	padding: 10px;
+	width: 94%;
+	height: 30px;
+	resize:none;
+    readonly: readonly;
+}
+
+.filebox label:hover {
+  background-color: #d2d2d2;
+}
+
+.filebox label:active {
+  background-color: #f2f2f2;
+}
+
+.filebox input[type="file"] {
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
